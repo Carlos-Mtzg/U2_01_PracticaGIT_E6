@@ -11,8 +11,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/suppliers")
+@CrossOrigin(origins = "*")
 public class SupplierController {
-    private  final SupplierService supplierService;
+    private final SupplierService supplierService;
+
     public SupplierController(SupplierService supplierService) {
         this.supplierService = supplierService;
     }
@@ -56,7 +58,8 @@ public class SupplierController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> updateSupplier(@PathVariable Integer id, @RequestBody Supplier supplier) {
+    public ResponseEntity<Map<String, Object>> updateSupplier(@PathVariable Integer id,
+            @RequestBody Supplier supplier) {
         Map<String, Object> response = new HashMap<>();
         Supplier existingSupplier = supplierService.findById(id);
 
@@ -93,6 +96,5 @@ public class SupplierController {
         response.put("status", 200);
         return ResponseEntity.ok(response);
     }
-
 
 }
