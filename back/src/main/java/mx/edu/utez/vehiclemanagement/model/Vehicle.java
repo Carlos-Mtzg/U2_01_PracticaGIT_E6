@@ -1,9 +1,6 @@
 package mx.edu.utez.vehiclemanagement.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -24,8 +21,8 @@ public class Vehicle {
     @Column(nullable = false)
     private String marca;
 
-    // TODO: Eliminar comentario dependiendo de la relación de proveedor
-//    @ManyToOne
-//    @JoinColumn(name = "proveedor_id", nullable = false)
-//    private Proveedor proveedor;
+
+    @ManyToOne
+    @JoinColumn(name = "supplier_id", nullable = false)
+    private Supplier supplier;
 }
