@@ -1,15 +1,34 @@
 import { useEffect, useState } from 'react'
 import Card from '../../components/Card'
-import { getAllVehicles } from '../../Services/ApiVehicles'
+import { deleteVehicle, getAllVehicles } from '../../Services/ApiVehicles'
+import InfoVehicleModal from '../../components/InfoVehicleModal'
 
 const Vehicles = () => {
     const [vehicles, setVehicles] = useState([])
+    const [showInfoModal, setShowInfoModal] = useState(false)
+    const [selectedVehicle, setSelectedVehicle] = useState(null)
 
     useEffect(() => {
         getAllVehicles()
             .then(data => setVehicles(data))
             .catch(() => setVehicles([]))
     }, [])
+
+    const handleDelete = async (id) => {
+        if (window.confirm('¿Seguro que deseas eliminar este proveedor?')) {
+            try {
+                await deleteVehicle(id)
+                setVehicles(vehicles.filter(vehicle => vehicle.vehicleId !== id))
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+
+    const handleView = (vehicle) => {
+        setSelectedVehicle(vehicle)
+        setShowInfoModal(true)
+    }
 
     return (
         <div>
@@ -23,13 +42,22 @@ const Vehicles = () => {
                 {vehicles.map(vehicle => (
                     <Card
                         key={vehicle.vehicleId}
+                        id={vehicle.vehicleId}
                         color={vehicle.color}
                         modelo={vehicle.modelo}
                         marca={vehicle.marca}
                         supplier={vehicle.supplier}
+                        onDelete={handleDelete}
+                        onView={() => handleView(vehicle)}
                     />
                 ))}
             </div>
+            {showInfoModal && selectedVehicle && (
+                <InfoVehicleModal
+                    vehicle={selectedVehicle}
+                    onClose={() => setShowInfoModal(false)}
+                />
+            )}
         </div>
     )
 }

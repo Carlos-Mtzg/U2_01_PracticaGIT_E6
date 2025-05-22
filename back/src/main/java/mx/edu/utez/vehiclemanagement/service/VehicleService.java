@@ -22,6 +22,10 @@ public class VehicleService {
         return vehicleRepository.findAll();
     }
 
+    public Vehicle findById(int vehicleId) {
+        return vehicleRepository.findById(vehicleId).orElse(null);
+    }
+
     public void deleteVehiculo(int vehicleId) {
         vehicleRepository.deleteById(vehicleId);
     }
