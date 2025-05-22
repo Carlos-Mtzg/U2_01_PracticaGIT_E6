@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
-import { deleteSupplier, getAllSupplier } from '../../Services/ApiSuppliers'
+import { deleteSupplier, getAllSupplier, getVehicleOfSupplier } from '../../Services/ApiSuppliers'
 import AddSupplierModal from '../../components/AddSupplierModal'
 import UpdateSupplierModal from '../../components/UpdateSupplierModal'
+import SupplierDetailsModal from '../../components/SupplierDetailsModal'
 
 const Suppliers = () => {
   const [suppliers, setSuppliers] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [showUpdateModal, setShowUpdateModal] = useState(false)
   const [selectedSupplier, setSelectedSupplier] = useState(null)
+  const [showDetailsModal, setShowDetailsModal] = useState(false)
 
   const fetchSuppliers = () => {
     getAllSupplier()
@@ -28,6 +30,11 @@ const Suppliers = () => {
         console.log('Error al eliminar proveedor' + error)
       }
     }
+  }
+
+  const handleDetails = (supplier) => {
+    setSelectedSupplier(supplier)
+    setShowDetailsModal(true)
   }
 
   const handleEdit = (supplier) => {
@@ -68,7 +75,7 @@ const Suppliers = () => {
                   <i className="bi bi-trash"></i>
                 </button>
                 <button className='cursor-pointer px-2'>
-                  <i className="bi bi-eye"></i>
+                  <i className="bi bi-eye" onClick={() => handleDetails(supplier)}></i>
                 </button>
               </td>
             </tr>
@@ -81,6 +88,12 @@ const Suppliers = () => {
           supplier={selectedSupplier}
           onClose={() => setShowUpdateModal(false)}
           onUpdate={fetchSuppliers}
+        />
+      )}
+      {showDetailsModal && selectedSupplier && (
+        <SupplierDetailsModal
+          supplier={selectedSupplier}
+          onClose={() => setShowDetailsModal(false)}
         />
       )}
     </>

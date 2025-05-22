@@ -29,4 +29,7 @@ public class VehicleService {
     public void deleteVehiculo(int vehicleId) {
         vehicleRepository.deleteById(vehicleId);
     }
+    public List<Vehicle> findByProveedor(Integer supplierId) {
+        return vehicleRepository.findBySupplier_SupplierId(supplierId);
+    }
 }
