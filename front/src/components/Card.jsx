@@ -1,4 +1,4 @@
-const Card = ({ id, color, modelo, marca, supplier, onDelete }) => {
+const Card = ({ id, color, modelo, marca, supplier, onDelete, onView }) => {
     return (
         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col gap-2 border border-gray-200 max-w-xs transition-transform duration-300 hover:scale-110 hover:shadow- hover:shadow-blue-950/30">
             <h2 className="text-xl font-bold text-blue-950 mb-2">{marca} {modelo}</h2>
@@ -8,7 +8,7 @@ const Card = ({ id, color, modelo, marca, supplier, onDelete }) => {
                 <button
                     className="px-2 cursor-pointer text-blue-700 hover:text-blue-900"
                     title="Ver"
-                    onClick={() => { }}
+                    onClick={onView}
                 >
                     <i className="bi bi-eye"></i>
                 </button>

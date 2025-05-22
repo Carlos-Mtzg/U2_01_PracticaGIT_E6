@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
 import Card from '../../components/Card'
 import { deleteVehicle, getAllVehicles } from '../../Services/ApiVehicles'
+import InfoVehicleModal from '../../components/InfoVehicleModal'
 
 const Vehicles = () => {
     const [vehicles, setVehicles] = useState([])
+    const [showInfoModal, setShowInfoModal] = useState(false)
+    const [selectedVehicle, setSelectedVehicle] = useState(null)
 
     useEffect(() => {
         getAllVehicles()
@@ -20,6 +23,11 @@ const Vehicles = () => {
                 console.log(error)
             }
         }
+    }
+
+    const handleView = (vehicle) => {
+        setSelectedVehicle(vehicle)
+        setShowInfoModal(true)
     }
 
     return (
@@ -40,9 +48,16 @@ const Vehicles = () => {
                         marca={vehicle.marca}
                         supplier={vehicle.supplier}
                         onDelete={handleDelete}
+                        onView={() => handleView(vehicle)}
                     />
                 ))}
             </div>
+            {showInfoModal && selectedVehicle && (
+                <InfoVehicleModal
+                    vehicle={selectedVehicle}
+                    onClose={() => setShowInfoModal(false)}
+                />
+            )}
         </div>
     )
 }
