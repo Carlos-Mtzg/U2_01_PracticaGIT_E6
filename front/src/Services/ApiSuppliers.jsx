@@ -11,7 +11,15 @@ export async function getAllSupplier() {
         throw error;
     }
 }
-
+export async function getVehicleOfSupplier(id) {
+    try {
+        const response = await axios.get(`${API_URL}vehicles/supplier/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error al obtener vehiculos del proveedor:', error);
+        return [];
+    }
+}
 export async function getSupplierById(id) {
     try {
         const response = await axios.get(`${API_URL}suppliers/${id}`);

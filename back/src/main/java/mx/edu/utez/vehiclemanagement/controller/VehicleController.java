@@ -106,4 +106,20 @@ public class VehicleController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+@GetMapping("/supplier/{supplierId}")
+public ResponseEntity<List<Vehicle>> findBySupplier(@PathVariable Integer supplierId) {
+    try {
+        Supplier supplier = supplierRepository.findById(supplierId)
+                .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));
+
+        List<Vehicle> vehicles = vehicleService.findByProveedor(supplierId);
+        if (vehicles.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(vehicles);
+    } catch (Exception e) {
+        return ResponseEntity.internalServerError().build();
+    }
+}
 }

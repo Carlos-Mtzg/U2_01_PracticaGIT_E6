@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
-    // TODO: Eliminar comentario cuando se implemente provedor
-//    List<Vehicle>  findByProvedorId(Long provedorId);
+
     List<Vehicle> findByMarca(String marca);
 
     List<Vehicle> findByColor(String color);
+   List<Vehicle> findBySupplier_SupplierId(Integer supplierId);
 
     boolean getVehicleByVehicleId(int vehicleId);
 }
