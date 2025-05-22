@@ -5,18 +5,18 @@ const API_URL = import.meta.env.VITE_API_URL_LOCAL;
 export async function getAllVehicles() {
     try {
         const response = await axios.get(`${API_URL}vehicles`)
-        return response.data
+        return response.data.data
     } catch (error) {
         console.error('Error al obtener vehículos:', error)
         throw error
     }
 }
 
-export async function registerVehicle({ color, modelo, marca, supplier }) {
+export async function registerVehicle({ color, modelo, marca, provedorId }) {
     try {
         const response = await axios.post(
             `${API_URL}vehicles`,
-            { color, modelo, marca, supplier }
+            { color, modelo, marca, provedorId }
         )
         return response.data
     } catch (error) {
