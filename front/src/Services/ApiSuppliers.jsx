@@ -5,6 +5,7 @@ const API_URL = import.meta.env.VITE_API_URL_LOCAL;
 export async function getAllSupplier() {
     try {
         const response = await axios.get(`${API_URL}suppliers/`);
+        console.log(response)
         return response.data.data;
     } catch (error) {
         console.error('Error al obtener proveedores:', error);

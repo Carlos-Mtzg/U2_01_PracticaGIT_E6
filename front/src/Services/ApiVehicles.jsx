@@ -12,11 +12,11 @@ export async function getAllVehicles() {
     }
 }
 
-export async function registerVehicle({ color, modelo, marca, supplier }) {
+export async function registerVehicle({ color, modelo, marca, provedorId }) {
     try {
         const response = await axios.post(
             `${API_URL}vehicles`,
-            { color, modelo, marca, supplier }
+            { color, modelo, marca, provedorId }
         )
         return response.data
     } catch (error) {
