@@ -18,6 +18,22 @@ const Vehicles = () => {
     }, []);
 
 
+    const handleDelete = async (id) => {
+        if (window.confirm('¿Seguro que deseas eliminar este proveedor?')) {
+            try {
+                await deleteVehicle(id)
+                setVehicles(vehicles.filter(vehicle => vehicle.vehicleId !== id))
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+
+    const handleView = (vehicle) => {
+        setSelectedVehicle(vehicle)
+        setShowInfoModal(true)
+    }
+
     return (
         <>
             <div>
@@ -41,6 +57,7 @@ const Vehicles = () => {
             </div>
             {showModal && <AddVehicleModal onClose={() => setShowModal(false)} onRegister={fetchVehicles} />}
         </>
+
     )
 }
 
